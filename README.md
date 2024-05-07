@@ -53,10 +53,10 @@ This project aims to set up an infrastructure pipeline using Terraform and Jenki
    - Organize the documentation in a clear and understandable format.
 
  ## Deploy Jenkins on EKS with Dynamic Jobs:
-    - Set up an EKS cluster on AWS using `eksctl`.
-    - Deploy Jenkins on the EKS cluster using Helm charts (`helm install jenkins stable/jenkins`).
-    - Install Kubernetes plugin on Jenkins.
-    - Configure Jenkins to dynamically provision build agents using Kubernetes pods.
-    - Define Jenkins jobs to execute pipeline steps on dynamically provisioned Kubernetes agents.
+   - Set up an EKS cluster on AWS using `eksctl`.
+   - Deploy Jenkins on the EKS cluster using Helm charts (`helm install jenkins stable/jenkins`).
+   - Install Kubernetes plugin on Jenkins.
+   - Configure Jenkins to dynamically provision build agents using Kubernetes pods.
+   - Define Jenkins jobs to execute pipeline steps on dynamically provisioned Kubernetes agents.
 
 
