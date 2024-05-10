@@ -9,9 +9,9 @@ This project aims to set up an infrastructure pipeline using Terraform and Jenki
    - Edit the `~/.ssh/config` file on the Jenkins server.
       - ```yaml
         Host bastion
-          HostName 18.184.34.9
-          User ubuntu
-          IdentityFile ~/Desktop/vois/jenkins/project/key.pem
+             HostName 18.184.34.9
+             User ubuntu
+             IdentityFile ~/Desktop/vois/jenkins/project/key.pem
       
          Host private
              HostName 10.0.146.62
