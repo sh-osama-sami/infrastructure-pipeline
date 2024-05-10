@@ -1,0 +1,33 @@
+- hosts: private
+  become: yes
+  remote_user: ec2-user
+
+  tasks:
+  - name: Update apt cache
+    apt:
+      Update_cache: yes
+      
+  - name: Install OpenJDK 11
+    apt:
+      name: openjdk-11-jdk
+      state: present
+
+  - name: Install Git                                     
+    apt:
+      name: git
+      state: present
+
+  - name: Create Jenkins Home Directory
+    file:
+      path: jenkins_home
+      state: directory
+      owner: root
+      group: root
+      mode: '0777'
+
+
+  - name: Install Docker
+    apt:
+      name: docker.io
+      state: present
+      update_cache: yes
