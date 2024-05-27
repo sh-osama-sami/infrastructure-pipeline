@@ -5,49 +5,53 @@ This project aims to set up an infrastructure pipeline using Terraform and Jenki
 
 ## Steps
 
-1. **Create Infrastructure Pipeline with Jenkins and Terraform:**
-   - Install Jenkins on a server (e.g., AWS EC2 instance).
-   - Install Terraform on the Jenkins server.
-   - Configure Jenkins credentials to access AWS.
-   - Create a new Jenkins pipeline job.
-   - In the pipeline job, define the pipeline script to fetch the Terraform code from your repository and execute Terraform commands (init, plan, apply).
-
-2. **Create Ansible Script for EC2 Configuration:**
-   - Install Ansible on the Jenkins server.
-   - Write an Ansible playbook to configure application EC2 instances.
-   - Include tasks such as installing dependencies (e.g., Node.js), deploying application code, configuring web servers, etc.
-
-3. **Configure Ansible for Private IP Access via Bastion Host:**
+1. **Configure Ansible for Private IP Access via Bastion Host:**
    - Edit the `~/.ssh/config` file on the Jenkins server.
+      - ```yaml
+        Host bastion
+             HostName 18.184.34.9
+             User ubuntu
+             IdentityFile ~/Desktop/vois/jenkins/project/key.pem
+      
+         Host private
+             HostName 10.0.146.62
+             User ubuntu
+             IdentityFile ~/Desktop/vois/jenkins/project/key.pem
+             ProxyCommand ssh -W %h:%p bastion
+        ```
    - Define SSH connection settings for accessing private EC2 instances through a bastion host.
+      - ```yaml
+         bastion
+         private
+        ```
 
-4. **Configure EC2 Instances as Jenkins Slaves:**
+2. **Configure EC2 Instances as Jenkins Slaves:**
    - Write an Ansible playbook to configure EC2 instances as Jenkins slaves.
-   - Install Jenkins agent software on EC2 instances.
-   - Configure EC2 instances to connect to the Jenkins master.
+     - view this ansible that installs dependencies for the slave 
+        - [ansible_file](ansible.yaml) 
 
-5. **Configure Jenkins Slave in Dashboard:**
+3. **Configure Jenkins Slave in Dashboard:**
    - Access Jenkins dashboard.
    - Navigate to Manage Jenkins > Manage Nodes and Clouds.
    - Click on "New Node" to add a new slave node.
    - Provide necessary configurations including labels, remote root directory, and launch method (e.g., via SSH).
    - Specify private IP address for connecting to the slave node.
 
-6. **Create Pipeline to Deploy Node.js Application:**
+4. **Create Pipeline to Deploy Node.js Application:**
    - Write a Jenkins pipeline script (Jenkinsfile) to deploy the Node.js application.
    - Define stages for checking out source code, building application, running tests, deploying to EC2 instances, etc.
 
-7. **Add Application Load Balancer to Terraform Code:**
+5. **Add Application Load Balancer to Terraform Code:**
    - Edit the Terraform code to include an Application Load Balancer resource.
    - Configure listener, target group, and health checks for the load balancer.
    - Associate EC2 instances running the Node.js application with the target group.
 
-8. **Test Application:**
+6. **Test Application:**
    - Access the Application Load Balancer URL in a web browser.
    - Verify that the application is accessible and functional.
    - Test the `/db` and `/redis` endpoints to ensure proper integration with RDS and Redis databases.
 
-9. **Create Documentation with Screenshots:**
+7. **Create Documentation with Screenshots:**
    - Capture screenshots of each step in the process.
    - Write detailed documentation explaining each configuration and deployment step.
    - Organize the documentation in a clear and understandable format.
